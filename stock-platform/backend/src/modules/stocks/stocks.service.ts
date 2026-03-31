@@ -69,10 +69,10 @@ export class StocksService {
     if (!stock) {
       try {
         const scraperData = await this.fetchFromScraper(`/stocks/${symbol}`);
-        if (scraperData?.data) {
-          stock = await this.stockRepo.save(
-            this.stockRepo.create({ ...scraperData.data, symbol: symbol.toUpperCase() }),
-          );
+        const stockData = Array.isArray(scraperData?.data) ? scraperData.data[0] : scraperData?.data;
+        if (stockData) {
+          const entity = this.stockRepo.create({ ...stockData, symbol: symbol.toUpperCase() });
+          stock = await this.stockRepo.save(entity as any) as unknown as Stock;
         }
       } catch (err) {
         this.logger.warn(`爬取股票详情失败: ${err.message}`);
@@ -236,10 +236,10 @@ export class StocksService {
     try {
       // 优先爬虫
       const scraperData = await this.fetchFromScraper(`/quote/${symbol}`);
-      if (scraperData?.data) {
-        return await this.quoteRepo.save(
-          this.quoteRepo.create({ ...scraperData.data, symbol: symbol.toUpperCase() }),
-        );
+      const quoteData = Array.isArray(scraperData?.data) ? scraperData.data[0] : scraperData?.data;
+      if (quoteData) {
+        const entity = this.quoteRepo.create({ ...quoteData, symbol: symbol.toUpperCase() });
+        return await this.quoteRepo.save(entity as any) as unknown as Quote;
       }
     } catch {
       // 降级到Yahoo Finance API
