@@ -1,8 +1,7 @@
 import { Injectable, Logger, BadRequestException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource } from 'typeorm';
+import { DataSource } from 'typeorm';
 import * as ExcelJS from 'exceljs';
-import * as PptxGenJS from 'pptxgenjs';
+import PptxGenJS from 'pptxgenjs';
 import * as path from 'path';
 import * as fs from 'fs';
 import axios from 'axios';

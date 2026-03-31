@@ -5,7 +5,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { StockModule } from './modules/stock/stock.module';
 import { NewsModule } from './modules/news/news.module';
 import { InstitutionModule } from './modules/institution/institution.module';
-import { ReportModule } from './modules/report/report.module';
+import { ReportsModule } from './modules/reports/reports.module';
 import { AiModule } from './modules/ai/ai.module';
 import { HeatmapModule } from './modules/heatmap/heatmap.module';
 
@@ -33,7 +33,7 @@ import { HeatmapModule } from './modules/heatmap/heatmap.module';
     StockModule,
     NewsModule,
     InstitutionModule,
-    ReportModule,
+    ReportsModule,
     AiModule,
     HeatmapModule,
   ],
