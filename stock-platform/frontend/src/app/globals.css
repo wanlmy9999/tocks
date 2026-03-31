@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   设计系统变量
+   ============================================================ */
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #131c2e;
+  --bg-hover: #1a2540;
+  --border: #1e2d4a;
+  --border-light: #253450;
+
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #4b6280;
+
+  --accent-blue: #3b82f6;
+  --accent-blue-glow: rgba(59, 130, 246, 0.15);
+  --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
+
+  --green: #10b981;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+  --orange: #f97316;
+
+  --green-dim: rgba(16, 185, 129, 0.1);
+  --red-dim: rgba(239, 68, 68, 0.1);
+
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.1);
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+}
+
+/* ============================================================
+   基础样式
+   ============================================================ */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-noto), var(--font-inter), system-ui, sans-serif;
+}
+
+/* ============================================================
+   滚动条美化
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3b5280; }
+
+/* ============================================================
+   卡片组件
+   ============================================================ */
+@layer components {
+  .card {
+    @apply rounded-xl border bg-[#131c2e] border-[#1e2d4a];
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-hover {
+    @apply card transition-all duration-200;
+  }
+  .card-hover:hover {
+    @apply border-[#3b82f6]/30;
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+    transform: translateY(-1px);
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium;
+  }
+  .badge-green { @apply badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/20; }
+  .badge-red { @apply badge bg-red-500/10 text-red-400 border border-red-500/20; }
+  .badge-blue { @apply badge bg-blue-500/10 text-blue-400 border border-blue-500/20; }
+  .badge-yellow { @apply badge bg-amber-500/10 text-amber-400 border border-amber-500/20; }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500
+           text-white font-medium text-sm transition-all duration-200 cursor-pointer;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1e2d4a] hover:bg-[#253450]
+           text-[#94a3b8] hover:text-white font-medium text-sm transition-all duration-200 cursor-pointer border border-[#1e2d4a];
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-white/5
+           text-[#94a3b8] hover:text-white text-sm transition-all duration-150 cursor-pointer;
+  }
+
+  .input-field {
+    @apply w-full bg-[#0d1525] border border-[#1e2d4a] rounded-lg px-4 py-2.5
+           text-[#e2e8f0] placeholder-[#4b6280] text-sm
+           focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20
+           transition-all duration-200;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-white mb-4 flex items-center gap-2;
+  }
+
+  .stat-card {
+    @apply card p-4 flex flex-col gap-1;
+  }
+
+  .price-up { @apply text-emerald-400; }
+  .price-down { @apply text-red-400; }
+  .price-neutral { @apply text-slate-400; }
+
+  /* 数据表格 */
+  .data-table { @apply w-full text-sm; }
+  .data-table th {
+    @apply px-4 py-3 text-left text-xs font-medium text-[#64748b] uppercase tracking-wider
+           border-b border-[#1e2d4a] bg-[#0d1525]/50;
+  }
+  .data-table td {
+    @apply px-4 py-3 border-b border-[#1e2d4a]/50 text-[#cbd5e1];
+  }
+  .data-table tr:hover td { @apply bg-[#1a2540]/50; }
+  .data-table tr:last-child td { @apply border-0; }
+
+  /* 进度条 */
+  .progress-bar {
+    @apply h-1.5 rounded-full bg-[#1e2d4a] overflow-hidden;
+  }
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-500;
+  }
+
+  /* 加载动画 */
+  .skeleton {
+    @apply bg-[#1e2d4a] animate-pulse rounded;
+  }
+
+  /* 热力图色彩 */
+  .heat-up-5  { background: #166534; }
+  .heat-up-3  { background: #15803d; }
+  .heat-up-1  { background: #16a34a; }
+  .heat-flat  { background: #374151; }
+  .heat-dn-1  { background: #b91c1c; }
+  .heat-dn-3  { background: #dc2626; }
+  .heat-dn-5  { background: #ef4444; }
+}
+
+/* ============================================================
+   动画
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in  { animation: fadeIn 0.3s ease both; }
+.animate-slide-in { animation: slideIn 0.25s ease both; }
+
+/* 价格跳动动画 */
+@keyframes priceFlash {
+  0%   { background: rgba(16,185,129,0.3); }
+  100% { background: transparent; }
+}
+.flash-green { animation: priceFlash 0.6s ease; }
+@keyframes priceFlashRed {
+  0%   { background: rgba(239,68,68,0.3); }
+  100% { background: transparent; }
+}
+.flash-red { animation: priceFlashRed 0.6s ease; }
+
+/* ============================================================
+   ECharts / 图表容器
+   ============================================================ */
+.echarts-container { width: 100%; height: 100%; }
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* ============================================================
+   响应式调整
+   ============================================================ */
+@media (max-width: 768px) {
+  .card { @apply rounded-lg; }
+}
